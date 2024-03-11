@@ -263,19 +263,11 @@ docker compose up -d
 
 ### Website
 
-You should see the "Luma..." page in your browser. If not, please check if your PHP installation satisfies SolidInvoice's requirements or ```docker container restart varnish```
+You should see the "SolidInvoice Installation" page in your browser. If not, please check if your PHP installation satisfies SolidInvoice's requirements or proxy configurations.
 
 ```
 https://example.com
 ```
-
-add or remove code in the ./php-fpm/php/conf.d/security.ini file for custom php.ini configurations
-
-[https://www.php.net/manual/en/configuration.file.php](https://www.php.net/manual/en/configuration.file.php)
-
-You should make changes custom host configurations ```./php-fpm/php-fpm.d/z-www.conf``` then must restart service, FPM uses php.ini syntax for its configuration file - php-fpm.conf, and pool configuration files.
-
-[https://www.php.net/manual/en/install.fpm.configuration.php](https://www.php.net/manual/en/install.fpm.configuration.php)
 
 ```
 docker container restart solidinvoice
@@ -293,6 +285,8 @@ add or remove code in the ```./proxy/templates/proxy.conf.template``` file for c
 [https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
 
 #### Database
+
+Database Config: ```Host: database, Port: 3306, User: {DB_USER}, Password: {DB_PASSWORD}, Database Name: {DB_NAME}``` in ./.env file.
 
 [https://mariadb.com/kb/en/configuring-mariadb-with-option-files/](https://mariadb.com/kb/en/configuring-mariadb-with-option-files/)
 

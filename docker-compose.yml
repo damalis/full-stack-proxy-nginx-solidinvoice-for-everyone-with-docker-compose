@@ -38,8 +38,6 @@ services:
             TZ: '${LOCAL_TIMEZONE}'
         labels:
             - 'docker-volume-backup.stop-during-backup=true'
-        #command: >
-        #    bash -c "grep -qe 'date.timezone = ${LOCAL_TIMEZONE}' ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini || echo 'date.timezone = ${LOCAL_TIMEZONE}' >> ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini; php-fpm"
 
     certbot:
         depends_on:
@@ -217,6 +215,11 @@ volumes:
             o: bind
     solidinvoice-data:
         name: solidinvoice-data
+        driver: local
+        driver_opts:
+            type: none
+            device: ${DIRECTORY_PATH}/solidinvoice/srv
+            o: bind
     db:
         name: ${DATABASE_CONT_NAME}-data
     db-backup-data:

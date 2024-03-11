@@ -1,5 +1,5 @@
 upstream docker_solidinvoice {
-	server solidinvoice:9000;
+	server solidinvoice:80;
 }
 
 map $scheme $proxy_x_forwarded_ssl {

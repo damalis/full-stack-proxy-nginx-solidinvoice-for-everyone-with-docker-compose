@@ -31,7 +31,6 @@ services:
             TIMEZONE: '${LOCAL_TIMEZONE}'
         labels:
             - 'docker-volume-backup.stop-during-backup=true'
-        entrypoint: bash -c "grep -qe 'date.timezone = ${LOCAL_TIMEZONE}' ${PHP_INI_DIR_PREFIX}/fpm/conf.d/security.ini || echo 'date.timezone = ${LOCAL_TIMEZONE}' >> ${PHP_INI_DIR_PREFIX}/fpm/conf.d/security.ini; /init"
 
     certbot:
         depends_on:

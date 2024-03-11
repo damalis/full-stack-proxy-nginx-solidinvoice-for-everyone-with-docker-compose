@@ -12,12 +12,6 @@ services:
             - backend
         volumes:
             - 'html:${WEBSERVER_DOC_ROOT}'
-            - type: bind
-              source: ./php-fpm/fpm/conf.d/security.ini
-              target: '${PHP_INI_DIR_PREFIX}/fpm/conf.d/security.ini'
-            - type: bind
-              source: ./php-fpm/fpm/pool.d/z-www.conf
-              target: '${PHP_INI_DIR_PREFIX}/fpm/pool.d/z-www.conf'
         hostname: solidinvoice
         restart: unless-stopped
         links:
@@ -32,9 +26,12 @@ services:
             DB_USER: '${DB_USER}'
             DB_PASSWORD: '${DB_PASSWORD}'
             DB_NAME: '${DB_NAME}'
-            TZ: '${LOCAL_TIMEZONE}'
+            PHP_MEMORY_LIMIT: '512M'
+            PHP_DATE_TIMEZONE: '${LOCAL_TIMEZONE}'
+            TIMEZONE: '${LOCAL_TIMEZONE}'
         labels:
             - 'docker-volume-backup.stop-during-backup=true'
+        entrypoint: bash -c "grep -qe 'date.timezone = ${LOCAL_TIMEZONE}' ${PHP_INI_DIR_PREFIX}/fpm/conf.d/security.ini || echo 'date.timezone = ${LOCAL_TIMEZONE}' >> ${PHP_INI_DIR_PREFIX}/fpm/conf.d/security.ini; /init"
 
     certbot:
         depends_on:

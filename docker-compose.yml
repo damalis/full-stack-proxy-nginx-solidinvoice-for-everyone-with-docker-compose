@@ -31,6 +31,7 @@ services:
             TIMEZONE: '${LOCAL_TIMEZONE}'
         labels:
             - 'docker-volume-backup.stop-during-backup=true'
+        command: bash -c "apt-get update && apt-get install -y cron && (crontab -u root -l | grep -v -F \"${WEBSERVER_DOC_ROOT}/bin/console\" ; echo \"* * * * * php ${WEBSERVER_DOC_ROOT}/bin/console cron:run -e prod -n\") | crontab -"
 
     certbot:
         depends_on:

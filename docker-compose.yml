@@ -29,9 +29,10 @@ services:
             PHP_MEMORY_LIMIT: '512M'
             PHP_DATE_TIMEZONE: '${LOCAL_TIMEZONE}'
             TIMEZONE: '${LOCAL_TIMEZONE}'
+            TZ: '${LOCAL_TIMEZONE}'
         labels:
             - 'docker-volume-backup.stop-during-backup=true'
-        command: bash -c "apt-get update && apt-get install -y cron && (crontab -u root -l | grep -v -F \"${WEBSERVER_DOC_ROOT}/bin/console\" ; echo \"* * * * * php ${WEBSERVER_DOC_ROOT}/bin/console cron:run -e prod -n\") | crontab -"
+        #command: bash -c "apt-get update && apt-get install -y cron && (crontab -u root -l | grep -v -F \"${WEBSERVER_DOC_ROOT}/moodle/admin/cli/cron.php\" ; echo \"* * * * * php /var/www/html/bin/console cron:run -e prod -n\") | crontab -"
 
     certbot:
         depends_on:

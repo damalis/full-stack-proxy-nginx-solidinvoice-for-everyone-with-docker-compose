@@ -310,12 +310,13 @@ do
 done
 echo "Ok."
 
-db_name=""
-read -p 'Enter Database Name(at least 6 characters): ' db_name
+read -p 'Enter Database Name(at least 6 characters, default : solidinvoice): ' db_name
+: ${db_name:=solidinvoice}
 while [[ ! $db_name =~ $db_regex ]]
 do
 	echo "Try again (can only contain numerals 0-9, basic Latin letters, both lowercase and uppercase, dollar sign and underscore)"
-	read -p 'Enter Database Name(at least 6 characters): ' db_name
+	read -p 'Enter Database Name(at least 6 characters, default : solidinvoice): ' db_name
+	: ${db_name:=solidinvoice}
 	sleep 1
 done
 echo "Ok."
